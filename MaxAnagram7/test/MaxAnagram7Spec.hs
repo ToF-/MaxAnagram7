@@ -25,5 +25,10 @@ spec = do
         it "should succeed with a trivial case" $ do
             maxAnagram7 7 `shouldBe` 7
 
-        it "should succed with a 2 digit number" $ do
+        it "should succeed with a 2 digit number" $ do
             maxAnagram7 12 `shouldBe` 21
+            maxAnagram7 82 `shouldBe` 28
+            maxAnagram7 59 `shouldBe` -1
+
+        it "should succeed with a 3 digit number" $ do
+            maxAnagram7 940 `shouldBe` 490
