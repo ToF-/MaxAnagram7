@@ -31,4 +31,7 @@ spec = do
             maxAnagram7 59 `shouldBe` -1
 
         it "should succeed with a 3 digit number" $ do
+            maxAnagram7 777 `shouldBe` 777
             maxAnagram7 940 `shouldBe` 490
+            maxAnagram7 417 `shouldBe` 714
+            maxAnagram7 287 `shouldBe` 728

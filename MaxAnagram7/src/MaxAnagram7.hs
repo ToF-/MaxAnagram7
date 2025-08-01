@@ -9,11 +9,11 @@ maxAnagram7 n = case findMaxAnagram7 (maxAnagram n) of
                   Nothing -> -1
 
 findMaxAnagram7 :: Integer -> Maybe Integer
-findMaxAnagram7 a = case mod a 7 of
-                      0 -> Just a
-                      _ -> case nextAnagram a of
-                             Just n -> findMaxAnagram7 n
-                             Nothing -> Nothing
+findMaxAnagram7 a = if (mod a 7) == 0 
+                       then Just a
+                       else case nextAnagram a of
+                              Just n -> findMaxAnagram7 n
+                              Nothing -> Nothing
 
 maxAnagram :: Integer -> Integer
 maxAnagram n = unDigits 10 (sortBy (flip compare) (digits 10 n))
@@ -24,12 +24,21 @@ nextAnagram n | n < 100 =
     let n' = toNumber $ reverse $ fromNumber n
      in if n' < n then Just n' else Nothing
 nextAnagram n | n < 1000 =
-    case nextAnagram (n `mod` 100) of
-      Just s -> Just $ n `div` 100 + s
-      Nothing -> Just $ (n `mod` 10) * 100 + maxAnagram ((n `div` 10) `mod` 10) + ((n `div` 100) `mod` 10)
+    let p = n `div` 100
+        s = n `mod` 100
+        u = n `mod` 10
+        v = n `div` 10
+    in case nextAnagram s of
+         Just t -> Just $ p * 100 + t
+         Nothing -> Just $ u * 100 + maxAnagram v
+
+
 nextAnagram 8740 = Just 8470
 
+fromNumber :: Integer -> [Integer]
 fromNumber = digits 10
+
+toNumber :: [Integer] -> Integer
 toNumber = unDigits 10
 
 
